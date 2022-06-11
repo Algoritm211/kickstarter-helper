@@ -37,10 +37,9 @@ const output = JSON.parse(solc.compile(JSON.stringify(input)))
 const contractData = output.contracts['Campaign.sol']
 
 for (const contract of Object.keys(contractData)) {
-  const abi = output.contracts['Campaign.sol'][contract].abi;
-  const bytecode = output.contracts['Campaign.sol'][contract].evm.bytecode.object;
+  const contractInterfaces = output.contracts['Campaign.sol'][contract];
   fs.writeJSONSync(
     path.resolve(__dirname, 'build', `${contract}.json`),
-    abi
+    contractInterfaces
   )
 }
