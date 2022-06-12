@@ -64,4 +64,51 @@ describe('Testing CampaignFactory and Campaign', () => {
       await expect(getValidationError(web3, error.message)).resolves.toMatch('You send lower than minimum contribution')
     }
   })
+
+  it('Allows manager to get request', async () => {
+    await campaign.methods.createRequest(
+      'Buy screen',
+      100,
+      accounts[2],
+    ).send({
+      from: accounts[0],
+      gas: 1_000_000
+    })
+
+    const request = await campaign.methods.requests(0).call();
+    expect(request.description).toBe('Buy screen')
+  });
+
+  it('Testing Request full flow', async () => {
+    await campaign.methods.contribute().send({
+      from: accounts[0],
+      value: web3.utils.toWei('20', 'ether'),
+    })
+
+    await campaign.methods.createRequest(
+      'Buy screen',
+      web3.utils.toWei('10', 'ether'),
+      accounts[7],
+    ).send({
+      from: accounts[0],
+      gas: 1_000_000,
+    });
+
+    await campaign.methods.approveRequest(0).send({
+      from: accounts[0],
+      gas: 1_000_000,
+    });
+
+    await campaign.methods.finalizeRequest(0).send({
+      from: accounts[0],
+      gas: 1_000_000,
+    });
+
+    let balance = await web3.eth.getBalance(accounts[7]);
+    balance = web3.utils.fromWei(balance, 'ether');
+
+    console.log(balance)
+
+    expect(+balance).toBeGreaterThan(1009);
+  });
 })
