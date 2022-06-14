@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
 
-    "deploy:contract": "ts-node ./ethereum/deploy.ts"
+    "deploy:contract": "ts-node ./ethereum/deploy.ts",
+    "postinstall": "ts-node ./ethereum/compile.ts"
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.0.8",
