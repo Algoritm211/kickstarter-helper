@@ -1,10 +1,10 @@
 import ganache from 'ganache';
 import Web3 from 'web3';
 import {Contract} from "web3-eth-contract";
-import CampaignFactory from '../ethereum/build/CampaignFactory.json'
-import Campaign from '../ethereum/build/Campaign.json'
+import CampaignFactory from '../build/CampaignFactory.json'
+import Campaign from '../build/Campaign.json'
 import {AbiItem} from "ethereum-abi-types-generator";
-import {getValidationError} from "../utils/getValidationContractError";
+import {getValidationError} from "../../utils/getValidationContractError";
 
 const web3 = new Web3(ganache.provider() as any);
 

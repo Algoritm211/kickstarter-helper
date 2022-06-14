@@ -1,9 +1,13 @@
+import path from "path";
 import {config} from 'dotenv';
-config()
+config({path: path.resolve(__dirname, '..', '.env.local')})
+
 import HDWalletProvider from '@truffle/hdwallet-provider';
 import Web3 from 'web3';
 import CampaignFactory from './build/CampaignFactory.json'
 import {AbiItem} from "ethereum-abi-types-generator";
+
+console.log(process.env.MNEMONIC_PHRASE)
 
 const provider = new HDWalletProvider({
   mnemonic: process.env.MNEMONIC_PHRASE!,
