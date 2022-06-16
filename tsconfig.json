@@ -22,6 +22,6 @@
       "module": "commonjs"
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "ethereum.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

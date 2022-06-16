@@ -30,4 +30,4 @@ const deployContract = async () => {
 }
 
 void deployContract()
-// Deployed address - 0x10FB7B55B5476cff57aACD54dB094e7b35d0ee8b
+// Deployed address - 0xBC92d8CAF595b2fE6AbEB74C1B124ED26A7735fF
