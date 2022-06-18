@@ -1,10 +1,8 @@
 import CampaignFactory from './build/CampaignFactory.json';
 import { AbiItem } from "ethereum-abi-types-generator";
-import {getLibrary} from "../pages/_app";
-
-const web3 = getLibrary(window.ethereum);
+import web3 from './web3';
 
 export const campaignFactory = new web3.eth.Contract(
-  CampaignFactory as unknown as AbiItem[],
-  '0x10FB7B55B5476cff57aACD54dB094e7b35d0ee8b'
+  CampaignFactory.abi as AbiItem[],
+  '0xBC92d8CAF595b2fE6AbEB74C1B124ED26A7735fF'
 )

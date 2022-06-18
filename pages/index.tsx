@@ -1,32 +1,45 @@
-import type {NextPage} from 'next'
+import React from "react";
+import type {GetServerSideProps, NextPage} from 'next'
 import {campaignFactory} from "../ethereum/factory";
-import {useEffect, useState} from "react";
-import { useWeb3React } from '@web3-react/core';
-import {injected} from "../components/wallet/connectors";
+import {Button, Container, Grid} from "@mui/material";
+import {CampaignCard} from "../components/CampaingnCard/CampaignCard";
+import AddIcon from '@mui/icons-material/Add'
+
+interface Props {
+  campaigns: string[]
+}
 
 
-const Home: NextPage = () => {
-  const { active, account, library, connector, activate, deactivate } = useWeb3React();
-
-  const [deployedCampaigns, setDeployedCampaigns] = useState([])
-
-  useEffect(() => {
-    const getDeployedCampaigns = async () => {
-      const {ethereum} = window;
-      // const accounts = await ethereum.request({method: 'eth_requestAccounts'});
-      await activate(injected)
-      // const campaigns = await campaignFactory.methods.getDeployedCampaigns().call();
-      // setDeployedCampaigns(campaigns);
-    }
-
-    void getDeployedCampaigns();
-  }, [])
+const Home: NextPage<Props> = ({campaigns}) => {
+  const cardItems = campaigns.map((address) => {
+    return <CampaignCard key={address} address={address} />
+  });
 
   return (
-    <div>
-      Basic config for ETH app
-    </div>
+    <Container>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={8}>
+          {cardItems}
+        </Grid>
+        <Grid item xs={12} md={4} container justifyContent="center">
+          <div>
+            <Button variant="contained" startIcon={<AddIcon />}>
+              Add Campaign
+            </Button>
+          </div>
+        </Grid>
+      </Grid>
+    </Container>
   )
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const campaigns = await campaignFactory.methods.getDeployedCampaigns().call()
+  return {
+    props: {
+      campaigns,
+    }
+  }
+}
