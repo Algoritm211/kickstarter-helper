@@ -4,6 +4,7 @@ import {campaignFactory} from "../ethereum/factory";
 import {Button, Container, Grid} from "@mui/material";
 import {CampaignCard} from "../components/CampaingnCard/CampaignCard";
 import AddIcon from '@mui/icons-material/Add'
+import Layout from "../components/Layout";
 
 interface Props {
   campaigns: string[]
@@ -16,20 +17,22 @@ const Home: NextPage<Props> = ({campaigns}) => {
   });
 
   return (
-    <Container>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={8}>
-          {cardItems}
+    <Layout>
+      <Container>
+        <Grid container spacing={2} flexDirection={{xs: 'column-reverse', md: 'row'}}>
+          <Grid item xs={12} md={8}>
+            {cardItems}
+          </Grid>
+          <Grid item xs={12} md={4} container justifyContent="center">
+            <div>
+              <Button variant="contained" startIcon={<AddIcon />}>
+                Add Campaign
+              </Button>
+            </div>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4} container justifyContent="center">
-          <div>
-            <Button variant="contained" startIcon={<AddIcon />}>
-              Add Campaign
-            </Button>
-          </div>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Layout>
   )
 }
 
