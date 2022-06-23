@@ -7,7 +7,6 @@ const NewCampaign = () => {
   return (
     <Layout>
       <Grid
-        item
         container
         gap={2}
         sx={{ minHeight: 'inherit'}}
@@ -20,7 +19,7 @@ const NewCampaign = () => {
             Add new Campaign
           </Typography>
         </Grid>
-        <Grid p={1}>
+        <Grid item p={1}>
           <AddCampaignForm />
         </Grid>
       </Grid>

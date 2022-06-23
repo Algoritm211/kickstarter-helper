@@ -17,13 +17,19 @@ const AddCampaignForm: React.FC = () => {
   const onSubmit = async (values: FormProps) => {
     const accounts = await web3.eth.getAccounts();
 
-    await campaignFactory.methods.deployNewCampaign(values.minimumContribution)
-      .send({
-        from: accounts[0],
-      })
+    try {
+      await campaignFactory.methods.deployNewCampaign(values.minimumContribution)
+        .send({
+          from: accounts[0],
+        })
 
-    const deployedCampaigns = await campaignFactory.methods.getDeployedCampaigns().call();
-    console.log(deployedCampaigns);
+      const deployedCampaigns = await campaignFactory.methods.getDeployedCampaigns().call();
+      console.log(deployedCampaigns);
+    } catch (error) {
+      return {
+        minimumContribution: (error as Error).message
+      }
+    }
   }
 
   return (
@@ -38,16 +44,16 @@ const AddCampaignForm: React.FC = () => {
                   name="minimumContribution"
                   validate={composeValidators(requiredValidator, numberValidator)}
                   render={({input, meta}) => {
-                    const {error, pristine, touched} = meta;
+                    const {error, touched, submitError} = meta;
                     return (
                       <TextField
                         {...input}
-                        error={touched && error}
+                        error={touched && (error || submitError)}
                         label="Minimum Value"
                         InputProps={{
                           endAdornment: <InputAdornment position="end">WEI</InputAdornment>
                         }}
-                        helperText={touched && error}
+                        helperText={touched && (error || submitError)}
                       />
                     )
                   }}
