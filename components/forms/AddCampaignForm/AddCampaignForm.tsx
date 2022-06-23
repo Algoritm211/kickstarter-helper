@@ -1,4 +1,4 @@
-import {Button, Grid, InputAdornment, TextField} from '@mui/material';
+import {Box, Button, Grid, InputAdornment, TextField} from '@mui/material';
 import React from 'react';
 import {Field, Form } from 'react-final-form';
 import {requiredValidator} from "../../validators/requiredValidator";
@@ -37,39 +37,39 @@ const AddCampaignForm: React.FC = () => {
       onSubmit={onSubmit}
       render={({handleSubmit, submitting}) => {
         return (
-          <form onSubmit={handleSubmit}>
+          <Box
+            component="form"
+            autoComplete="off"
+            onSubmit={handleSubmit}>
             <Grid container flexDirection="column" alignItems="center" gap={2}>
-              <Grid>
-                <Field
-                  name="minimumContribution"
-                  validate={composeValidators(requiredValidator, numberValidator)}
-                  render={({input, meta}) => {
-                    const {error, touched, submitError} = meta;
-                    return (
-                      <TextField
-                        {...input}
-                        error={touched && (error || submitError)}
-                        label="Minimum Value"
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">WEI</InputAdornment>
-                        }}
-                        helperText={touched && (error || submitError)}
-                      />
-                    )
-                  }}
-                />
-              </Grid>
-              <Grid>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  disabled={submitting}
-                  startIcon={<AddIcon />}>
-                  Add campaign
-                </Button>
-              </Grid>
+              <Field
+                name="minimumContribution"
+                validate={composeValidators(requiredValidator, numberValidator)}
+                render={({input, meta}) => {
+                  const {error, touched, submitError} = meta;
+                  return (
+                    <TextField
+                      {...input}
+                      error={touched && (error || submitError)}
+                      label="Minimum Value"
+                      InputProps={{
+                        endAdornment: <InputAdornment position="end">WEI</InputAdornment>
+                      }}
+                      // sx={{maxWidth: {sm: '30%'}}}
+                      helperText={touched && (error || submitError)}
+                    />
+                  )
+                }}
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                disabled={submitting}
+                startIcon={<AddIcon />}>
+                Add campaign
+              </Button>
             </Grid>
-          </form>
+          </Box>
         )
       }}
     />

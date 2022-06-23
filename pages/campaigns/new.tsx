@@ -19,7 +19,7 @@ const NewCampaign = () => {
             Add new Campaign
           </Typography>
         </Grid>
-        <Grid item p={1}>
+        <Grid item p={1} maxWidth={{sm: '60%', lg: '40%'}}>
           <AddCampaignForm />
         </Grid>
       </Grid>
