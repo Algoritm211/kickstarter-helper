@@ -1,4 +1,5 @@
 import {Box, Button, Card, CardActions, CardContent, Typography} from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
 
 interface Props {
@@ -18,7 +19,12 @@ export const CampaignCard: React.FC<Props> = ({address}) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">View Contract</Button>
+        <Link href={`/campaings/${address}`}>
+          <Button
+            component="a"
+            href={`/campaings/${address}`}
+            size="small">View Contract</Button>
+        </Link>
       </CardActions>
     </Card>
       <Box mb={2}/>

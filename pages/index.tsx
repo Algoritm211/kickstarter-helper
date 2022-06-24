@@ -30,17 +30,16 @@ const Home: NextPage<Props> = ({campaigns}) => {
           </Typography>
           {cardItems}
         </Grid>
-        <Grid item xs={12} md={4} container justifyContent="center">
-          <div>
+        <Grid item xs={12} md={4} textAlign="center">
+          <Link href="/campaigns/new">
             <Button
               component="a"
-              LinkComponent={Link}
               href="/campaigns/new"
               variant="contained"
               startIcon={<AddIcon />}>
               Add Campaign
             </Button>
-          </div>
+          </Link>
         </Grid>
       </Grid>
     </Layout>
