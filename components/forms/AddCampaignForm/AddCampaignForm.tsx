@@ -9,6 +9,7 @@ import web3 from "../../../ethereum/web3";
 import {campaignFactory} from "../../../ethereum/factory";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import {Web3Context} from "../../../context/Web3Context";
+import {useRouter} from "next/router";
 
 interface FormProps {
   minimumContribution: number;
@@ -16,6 +17,7 @@ interface FormProps {
 
 const AddCampaignForm: React.FC = () => {
   const {userWallet} = useContext(Web3Context)
+  const router = useRouter();
 
   const onSubmit = async (values: FormProps) => {
     try {
@@ -26,6 +28,7 @@ const AddCampaignForm: React.FC = () => {
 
       const deployedCampaigns = await campaignFactory.methods.getDeployedCampaigns().call();
       console.log(deployedCampaigns);
+      void router.push('/')
     } catch (error) {
       return {
         minimumContribution: (error as Error).message

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Toolbar, Typography} from "@mui/material";
 import Link from 'next/link';
 
 export const Header: React.FC = () => {
@@ -8,9 +8,10 @@ export const Header: React.FC = () => {
       <Toolbar variant="dense">
         <Link href="/">
           <Typography
-            sx={{cursor: 'pointer'}}
+            sx={{cursor: 'pointer', textDecoration: 'none'}}
             variant="h6"
             color="inherit"
+            href="/"
             component="a">
             KickStarter helper
           </Typography>

@@ -1,7 +1,7 @@
 import React from "react";
 import type {GetServerSideProps, NextPage} from 'next'
 import {campaignFactory} from "../ethereum/factory";
-import {Button, Container, Grid} from "@mui/material";
+import {Button, Container, Grid, Typography} from "@mui/material";
 import {CampaignCard} from "../components/CampaingnCard/CampaignCard";
 import AddIcon from '@mui/icons-material/Add'
 import Layout from "../components/UI/Layout";
@@ -21,6 +21,13 @@ const Home: NextPage<Props> = ({campaigns}) => {
     <Layout>
       <Grid container spacing={2} flexDirection={{xs: 'column-reverse', md: 'row'}}>
         <Grid item xs={12} md={8}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            fontWeight="bold">
+            Open campaigns
+          </Typography>
           {cardItems}
         </Grid>
         <Grid item xs={12} md={4} container justifyContent="center">
