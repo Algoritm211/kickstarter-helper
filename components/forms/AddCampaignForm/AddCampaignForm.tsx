@@ -1,5 +1,5 @@
 import {Box, Button, Grid, InputAdornment, TextField} from '@mui/material';
-import React from 'react';
+import React, {useContext} from 'react';
 import {Field, Form } from 'react-final-form';
 import {requiredValidator} from "../../validators/requiredValidator";
 import AddIcon from "@mui/icons-material/Add";
@@ -7,20 +7,21 @@ import {numberValidator} from "../../validators/numberValidator";
 import {composeValidators} from "../../validators/composeValidators";
 import web3 from "../../../ethereum/web3";
 import {campaignFactory} from "../../../ethereum/factory";
+import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
+import {Web3Context} from "../../../context/Web3Context";
 
 interface FormProps {
   minimumContribution: number;
 }
 
 const AddCampaignForm: React.FC = () => {
+  const {userWallet} = useContext(Web3Context)
 
   const onSubmit = async (values: FormProps) => {
-    const accounts = await web3.eth.getAccounts();
-
     try {
       await campaignFactory.methods.deployNewCampaign(values.minimumContribution)
         .send({
-          from: accounts[0],
+          from: userWallet,
         })
 
       const deployedCampaigns = await campaignFactory.methods.getDeployedCampaigns().call();
@@ -65,7 +66,7 @@ const AddCampaignForm: React.FC = () => {
                 variant="contained"
                 type="submit"
                 disabled={submitting}
-                startIcon={<AddIcon />}>
+                startIcon={submitting ? <HourglassBottomIcon /> : <AddIcon />}>
                 Add campaign
               </Button>
             </Grid>
