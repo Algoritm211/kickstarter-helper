@@ -1,7 +1,7 @@
 import React from "react";
 import type {GetServerSideProps, NextPage} from 'next'
-import {campaignFactory} from "../ethereum/factory";
-import {Button, Container, Grid, Typography} from "@mui/material";
+import {campaignFactory} from "../contracts/factory";
+import {Button, Grid, Typography} from "@mui/material";
 import {CampaignCard} from "../components/CampaingnCard/CampaignCard";
 import AddIcon from '@mui/icons-material/Add'
 import Layout from "../components/UI/Layout";

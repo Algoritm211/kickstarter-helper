@@ -1,12 +1,11 @@
 import {Box, Button, Grid, InputAdornment, TextField} from '@mui/material';
 import React, {useContext} from 'react';
-import {Field, Form } from 'react-final-form';
+import {Field, Form} from 'react-final-form';
 import {requiredValidator} from "../../validators/requiredValidator";
 import AddIcon from "@mui/icons-material/Add";
 import {numberValidator} from "../../validators/numberValidator";
 import {composeValidators} from "../../validators/composeValidators";
-import web3 from "../../../ethereum/web3";
-import {campaignFactory} from "../../../ethereum/factory";
+import {campaignFactory} from "../../../contracts/factory";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import {Web3Context} from "../../../context/Web3Context";
 import {useRouter} from "next/router";
@@ -15,7 +14,7 @@ interface FormProps {
   minimumContribution: number;
 }
 
-const AddCampaignForm: React.FC = () => {
+export const AddCampaignForm: React.FC = () => {
   const {userWallet} = useContext(Web3Context)
   const router = useRouter();
 
@@ -79,5 +78,3 @@ const AddCampaignForm: React.FC = () => {
     />
   );
 };
-
-export default AddCampaignForm;

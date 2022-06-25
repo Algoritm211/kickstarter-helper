@@ -7,8 +7,6 @@ import Web3 from 'web3';
 import CampaignFactory from './build/CampaignFactory.json'
 import {AbiItem} from "ethereum-abi-types-generator";
 
-console.log(process.env.MNEMONIC_PHRASE)
-
 const provider = new HDWalletProvider({
   mnemonic: process.env.MNEMONIC_PHRASE!,
   providerOrUrl: process.env.RINKEBY_ENDPOINT!,
@@ -30,4 +28,4 @@ const deployContract = async () => {
 }
 
 void deployContract()
-// Deployed address - 0xBC92d8CAF595b2fE6AbEB74C1B124ED26A7735fF
+// Deployed address - 0x26Ac6d655237661A5fb33e56418890cD7B66f0Ee

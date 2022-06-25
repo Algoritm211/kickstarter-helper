@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile:contract": "ts-node ./ethereum/compile.ts",
+
+    "gen:types": "npm run gen:types:factory && npm run gen:types:campaign",
+    "gen:types:campaign": "abi-types-generator ./ethereum/build/Campaign.json --name=campaignTypes --output=./ethereum/types/",
+    "gen:types:factory": "abi-types-generator ./ethereum/build/CampaignFactory.json --name=factoryTypes --output=./ethereum/types/",
+    "compile:contract": "ts-node ./ethereum/compile.ts && npm run gen:types",
     "deploy:contract": "ts-node ./ethereum/deploy.ts",
     "postinstall": "npm run compile:contract"
   },

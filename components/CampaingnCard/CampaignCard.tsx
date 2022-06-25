@@ -19,10 +19,10 @@ export const CampaignCard: React.FC<Props> = ({address}) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link href={`/campaings/${address}`}>
+        <Link href={`/campaigns/${address}`}>
           <Button
             component="a"
-            href={`/campaings/${address}`}
+            href={`/campaigns/${address}`}
             size="small">View Contract</Button>
         </Link>
       </CardActions>
