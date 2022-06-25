@@ -79,7 +79,11 @@ contract Campaign {
     }
 
     function getSummary() public view returns (
-        uint, uint, uint, uint, address
+        uint minContribution,
+        uint contractBalance,
+        uint requestsCount,
+        uint contributorsCount,
+        address managerAddress
     ) {
         return (
         minimumContribution,
