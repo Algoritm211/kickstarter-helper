@@ -2,10 +2,13 @@ import React from 'react';
 import Layout from "../../components/UI/Layout";
 import {GetStaticPaths, GetStaticProps} from "next";
 import {campaignFactory} from "../../contracts/factory";
-import {campaign} from "../../contracts/campaign";
+import {Campaign} from "../../contracts/campaign";
 import {GetSummaryResponse} from "../../ethereum/types/campaignTypes";
 import {Grid, Typography} from '@mui/material';
 import {CampaignInfoCard} from "../../components/CampaignInfoCard/CampaignInfoCard";
+import web3 from "../../contracts/web3";
+import {ContributeForm} from "../../components/forms/ContributeForm/ContributeForm";
+import {useRouter} from "next/router";
 
 interface Props {
   contractInfo: GetSummaryResponse
@@ -14,15 +17,17 @@ interface Props {
 const transformData = (info: GetSummaryResponse) => {
   const {minContribution, contractBalance, requestsCount, contributorsCount} = info;
   return [
-    { value: minContribution, description: 'Minimum contribution' },
-    { value: contractBalance, description: 'Contract balance' },
-    { value: requestsCount, description: 'Requests count' },
-    { value: contributorsCount, description: 'Contributors' },
+    {value: minContribution, description: 'Minimum contribution (WEI)'},
+    {value: web3.utils.fromWei(contractBalance, 'ether'), description: 'Contract balance (ETH)'},
+    {value: requestsCount, description: 'Requests count'},
+    {value: contributorsCount, description: 'Contributors'},
   ]
 }
 
 const CampaignPage: React.FC<Props> = ({contractInfo}) => {
   const preparedData = transformData(contractInfo);
+  const {query} = useRouter();
+  const address = query.address as string;
 
   const dataCards = preparedData.map((infoObj) => {
     return (
@@ -34,18 +39,29 @@ const CampaignPage: React.FC<Props> = ({contractInfo}) => {
 
   return (
     <Layout>
-      <Grid container flexDirection={{xs: 'column', md: 'row'}}>
-        <Grid
-          container
-          xs={12} md={8}
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {dataCards}
-        </Grid>
-        <Grid container xs={12} md={4}>
-          <Typography variant="h5" component="h3">
-            Some form
+      <Grid
+        container
+        alignItems="center"
+        flexDirection={{xs: 'column', md: 'row'}}
+        gap={{xs: 2, md: 0}}
+      >
+        <Grid item xs={12} md={8}>
+          <Typography gutterBottom variant="h5" fontWeight="bold" component="h3">
+            Campaign Info
           </Typography>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{xs: 1, sm: 2, md: 3}}
+          >
+            {dataCards}
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <ContributeForm
+            minimumContribution={contractInfo.minContribution}
+            campaignAddress={address}
+          />
         </Grid>
       </Grid>
     </Layout>
@@ -68,13 +84,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true
+    fallback: 'blocking'
   }
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({params}) => {
   const address = params?.address as string;
-  const campaignInstance = campaign(address);
+  const campaignInstance = Campaign(address);
 
   const contractInfo = await campaignInstance.methods.getSummary().call();
 

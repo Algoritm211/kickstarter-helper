@@ -11,7 +11,7 @@ import {Web3Context} from "../../../context/Web3Context";
 import {useRouter} from "next/router";
 
 interface FormProps {
-  minimumContribution: number;
+  minimumContribution: string;
 }
 
 export const AddCampaignForm: React.FC = () => {
@@ -53,7 +53,7 @@ export const AddCampaignForm: React.FC = () => {
                   return (
                     <TextField
                       {...input}
-                      error={touched && (error || submitError)}
+                      error={!!(touched && (error || submitError))}
                       label="Minimum Value"
                       InputProps={{
                         endAdornment: <InputAdornment position="end">WEI</InputAdornment>
