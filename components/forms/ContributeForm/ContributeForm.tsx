@@ -10,6 +10,7 @@ import {Campaign} from "../../../contracts/campaign";
 import {Web3Context} from "../../../context/Web3Context";
 import web3 from "../../../contracts/web3";
 import {minValue} from "../../validators/minimumValidator";
+import {useRouter} from "next/router";
 
 interface Props {
   campaignAddress: string;
@@ -22,6 +23,7 @@ interface FormProps {
 
 export const ContributeForm: React.FC<Props> = ({campaignAddress, minimumContribution}) => {
   const {userWallet} = useContext(Web3Context);
+  const router = useRouter();
 
   const onSubmit = async (values: FormProps) => {
     const campaign = Campaign(campaignAddress);
@@ -31,12 +33,14 @@ export const ContributeForm: React.FC<Props> = ({campaignAddress, minimumContrib
         from: userWallet,
         value: web3.utils.toWei(values.contribution, 'ether'),
       })
+      void router.replace(`/campaigns/${campaignAddress}`)
     } catch (error) {
       return {
         contribution: (error as Error).message
       }
     }
   }
+
   return (
     <Form<FormProps>
       onSubmit={onSubmit}
