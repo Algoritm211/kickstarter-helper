@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import '../styles/normalize.css';
 import NextNprogress from 'nextjs-progressbar'
-import {Web3ContextProvider} from "../context/Web3Context";
+import {Web3ContextProvider} from "../src/context/Web3Context";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

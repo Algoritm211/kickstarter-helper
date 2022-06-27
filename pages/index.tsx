@@ -1,11 +1,11 @@
 import React from "react";
 import type {GetServerSideProps, NextPage} from 'next'
 import {campaignFactory} from "../contracts/factory";
-import {Button, Grid, Typography} from "@mui/material";
-import {CampaignCard} from "../components/CampaingnCard/CampaignCard";
+import {Grid, Typography} from "@mui/material";
+import {CampaignCard} from "../src/components/CampaingnCard/CampaignCard";
 import AddIcon from '@mui/icons-material/Add'
-import Layout from "../components/UI/Layout";
-import Link from "next/link";
+import Layout from "../src/components/UI/Layout";
+import { LinkButton } from "../src/components/shared/LinkButton";
 
 interface Props {
   campaigns: string[]
@@ -31,15 +31,12 @@ const Home: NextPage<Props> = ({campaigns}) => {
           {cardItems}
         </Grid>
         <Grid item xs={12} md={4} textAlign="center">
-          <Link href="/campaigns/new">
-            <Button
-              component="a"
-              href="/campaigns/new"
-              variant="contained"
-              startIcon={<AddIcon />}>
-              Add Campaign
-            </Button>
-          </Link>
+          <LinkButton
+            href="/campaigns/new"
+            variant="contained"
+            startIcon={<AddIcon />}>
+            Add Campaign
+          </LinkButton>
         </Grid>
       </Grid>
     </Layout>

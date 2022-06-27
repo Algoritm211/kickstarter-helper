@@ -6,9 +6,9 @@ import {requiredValidator} from "../../validators/requiredValidator";
 import {numberValidator} from "../../validators/numberValidator";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import {Campaign} from "../../../contracts/campaign";
+import {Campaign} from "../../../../contracts/campaign";
 import {Web3Context} from "../../../context/Web3Context";
-import web3 from "../../../contracts/web3";
+import web3 from "../../../../contracts/web3";
 import {minValue} from "../../validators/minimumValidator";
 import {useRouter} from "next/router";
 

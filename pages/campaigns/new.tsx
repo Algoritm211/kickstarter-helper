@@ -1,7 +1,7 @@
 import React from 'react';
-import Layout from '../../components/UI/Layout';
+import Layout from '../../src/components/UI/Layout';
 import {Grid, Typography} from "@mui/material";
-import {AddCampaignForm} from '../../components/forms/AddCampaignForm/AddCampaignForm';
+import {AddCampaignForm} from '../../src/components/forms/AddCampaignForm/AddCampaignForm';
 
 const NewCampaign = () => {
   return (

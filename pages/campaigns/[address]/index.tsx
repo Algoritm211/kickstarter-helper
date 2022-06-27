@@ -1,14 +1,16 @@
 import React from 'react';
-import Layout from "../../components/UI/Layout";
+import Layout from "../../../src/components/UI/Layout";
 import {GetStaticPaths, GetStaticProps} from "next";
-import {campaignFactory} from "../../contracts/factory";
-import {Campaign} from "../../contracts/campaign";
-import {GetSummaryResponse} from "../../ethereum/types/campaignTypes";
-import {Grid, Typography} from '@mui/material';
-import {CampaignInfoCard} from "../../components/CampaignInfoCard/CampaignInfoCard";
-import web3 from "../../contracts/web3";
-import {ContributeForm} from "../../components/forms/ContributeForm/ContributeForm";
+import {campaignFactory} from "../../../contracts/factory";
+import {Campaign} from "../../../contracts/campaign";
+import {GetSummaryResponse} from "../../../ethereum/types/campaignTypes";
+import {Box, Grid, Typography} from '@mui/material';
+import {CampaignInfoCard} from "../../../src/components/CampaignInfoCard/CampaignInfoCard";
+import web3 from "../../../contracts/web3";
+import {ContributeForm} from "../../../src/components/forms/ContributeForm/ContributeForm";
 import {useRouter} from "next/router";
+import RequestPageIcon from '@mui/icons-material/RequestPage';
+import {LinkButton} from "../../../src/components/shared/LinkButton";
 
 interface Props {
   contractInfo: GetSummaryResponse
@@ -56,6 +58,15 @@ const CampaignPage: React.FC<Props> = ({contractInfo}) => {
           >
             {dataCards}
           </Grid>
+          <Box textAlign="center" pt={2}>
+            <LinkButton
+              size="large"
+              href={`/campaigns/${address}/requests`}
+              variant="contained"
+              startIcon={<RequestPageIcon />}>
+              View requests
+            </LinkButton>
+          </Box>
         </Grid>
         <Grid item xs={12} md={4}>
           <ContributeForm

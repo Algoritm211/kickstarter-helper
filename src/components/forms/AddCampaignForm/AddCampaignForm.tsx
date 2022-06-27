@@ -5,7 +5,7 @@ import {requiredValidator} from "../../validators/requiredValidator";
 import AddIcon from "@mui/icons-material/Add";
 import {numberValidator} from "../../validators/numberValidator";
 import {composeValidators} from "../../validators/composeValidators";
-import {campaignFactory} from "../../../contracts/factory";
+import {campaignFactory} from "../../../../contracts/factory";
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import {Web3Context} from "../../../context/Web3Context";
 import {useRouter} from "next/router";
