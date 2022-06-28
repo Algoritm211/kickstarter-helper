@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Field, Form} from 'react-final-form';
 import {Box, Button, Grid, InputAdornment, TextField} from "@mui/material";
 import {composeValidators} from "../../validators/composeValidators";
@@ -7,6 +7,10 @@ import {numberValidator} from "../../validators/numberValidator";
 import {ethAddressValidator} from "../../validators/ethAddressValidator";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import AddIcon from "@mui/icons-material/Add";
+import {Web3Context} from "../../../context/Web3Context";
+import {Campaign} from "../../../../contracts/campaign";
+import {useRouter} from "next/router";
+import web3 from "../../../../contracts/web3";
 
 interface FormValues {
   recipient: string;
@@ -15,8 +19,26 @@ interface FormValues {
 }
 
 export const AddRequestForm: React.FC = () => {
+  const {userWallet} = useContext(Web3Context);
+  const router = useRouter();
+  const address = router.query.address as string;
+
   const onSubmit = async (values: FormValues) => {
-    console.log(values)
+    const {description, amount, recipient} = values;
+    const campaign = Campaign(address);
+
+    try {
+      await campaign.methods.createRequest(
+        description,
+        web3.utils.toWei(amount, 'ether'),
+        recipient,
+      ).send({
+        from: userWallet,
+      })
+      void router.push(`/campaigns/${address}/requests`)
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
     <Form<FormValues>
