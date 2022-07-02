@@ -21,7 +21,7 @@ contract Campaign {
     uint public minimumContribution;
     // address - Address of person, bool - if he/she donated money for contract
     mapping(address => bool) public approvers;
-    uint approversCount;
+    uint public approversCount;
     Request[] public requests;
 
     modifier managerOnly() {
