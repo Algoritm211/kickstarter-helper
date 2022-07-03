@@ -1,7 +1,7 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
 import '../styles/normalize.css';
-import NextNprogress from 'nextjs-progressbar'
-import {Web3ContextProvider} from "../src/context/Web3Context";
+import NextNprogress from 'nextjs-progressbar';
+import { Web3ContextProvider } from '../src/context/Web3Context';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,11 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         startPosition={0.3}
         stopDelayMs={200}
         height={3}
-        options={{ easing: "ease", speed: 500 }}
+        options={{ easing: 'ease', speed: 500 }}
       />
-     <Component {...pageProps} />
+      <Component {...pageProps} />
     </Web3ContextProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

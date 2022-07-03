@@ -3,19 +3,17 @@ import React from 'react';
 
 interface Props {
   description: string;
-  value: string | number
+  value: string | number;
 }
 
-export const CampaignInfoCard: React.FC<Props> = ({description, value}) => {
+export const CampaignInfoCard: React.FC<Props> = ({ description, value }) => {
   return (
     <Card>
       <CardContent>
         <Typography gutterBottom variant="h5" fontWeight="bold" component="div">
           {value}
         </Typography>
-        <Typography>
-          {description}
-        </Typography>
+        <Typography>{description}</Typography>
       </CardContent>
     </Card>
   );

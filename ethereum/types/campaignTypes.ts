@@ -1,12 +1,6 @@
 import BN from 'bn.js';
 import BigNumber from 'bignumber.js';
-import {
-  PromiEvent,
-  TransactionReceipt,
-  EventResponse,
-  EventData,
-  Web3ContractContext,
-} from 'ethereum-abi-types-generator';
+import { PromiEvent, TransactionReceipt, EventResponse, EventData, Web3ContractContext } from 'ethereum-abi-types-generator';
 
 export interface CallOptions {
   from?: string;
@@ -29,42 +23,29 @@ export interface EstimateGasOptions {
 
 export interface MethodPayableReturnContext {
   send(options: SendOptions): PromiEvent<TransactionReceipt>;
-  send(
-    options: SendOptions,
-    callback: (error: Error, result: any) => void
-  ): PromiEvent<TransactionReceipt>;
+  send(options: SendOptions, callback: (error: Error, result: any) => void): PromiEvent<TransactionReceipt>;
   estimateGas(options: EstimateGasOptions): Promise<number>;
-  estimateGas(
-    options: EstimateGasOptions,
-    callback: (error: Error, result: any) => void
-  ): Promise<number>;
+  estimateGas(options: EstimateGasOptions, callback: (error: Error, result: any) => void): Promise<number>;
   encodeABI(): string;
 }
 
 export interface MethodConstantReturnContext<TCallReturn> {
   call(): Promise<TCallReturn>;
   call(options: CallOptions): Promise<TCallReturn>;
-  call(
-    options: CallOptions,
-    callback: (error: Error, result: TCallReturn) => void
-  ): Promise<TCallReturn>;
+  call(options: CallOptions, callback: (error: Error, result: TCallReturn) => void): Promise<TCallReturn>;
   encodeABI(): string;
 }
 
-export interface MethodReturnContext extends MethodPayableReturnContext {}
+export type MethodReturnContext = MethodPayableReturnContext;
 
-export type ContractContext = Web3ContractContext<
-  CampaignTypes,
-  CampaignTypesMethodNames,
-  CampaignTypesEventsContext,
-  CampaignTypesEvents
->;
+export type ContractContext = Web3ContractContext<CampaignTypes, CampaignTypesMethodNames, CampaignTypesEventsContext, CampaignTypesEvents>;
 export type CampaignTypesEvents = undefined;
 export interface CampaignTypesEventsContext {}
 export type CampaignTypesMethodNames =
   | 'new'
   | 'approveRequest'
   | 'approvers'
+  | 'approversCount'
   | 'contribute'
   | 'createRequest'
   | 'finalizeRequest'
@@ -114,6 +95,13 @@ export interface CampaignTypes {
    */
   approvers(parameter0: string): MethodConstantReturnContext<boolean>;
   /**
+   * Payable: false
+   * Constant: true
+   * StateMutability: view
+   * Type: function
+   */
+  approversCount(): MethodConstantReturnContext<string>;
+  /**
    * Payable: true
    * Constant: false
    * StateMutability: payable
@@ -129,11 +117,7 @@ export interface CampaignTypes {
    * @param value Type: uint256, Indexed: false
    * @param recipient Type: address, Indexed: false
    */
-  createRequest(
-    description: string,
-    value: string,
-    recipient: string
-  ): MethodReturnContext;
+  createRequest(description: string, value: string, recipient: string): MethodReturnContext;
   /**
    * Payable: false
    * Constant: false

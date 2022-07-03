@@ -1,8 +1,8 @@
 import { Container } from '@mui/material';
 import React from 'react';
-import {Header} from "./Header/Header";
+import { Header } from './Header/Header';
 
-const Layout: React.FC<{children: React.ReactNode}> = ({children}) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
